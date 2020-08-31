@@ -10,11 +10,19 @@ screen = pygame.display.set_mode((500, 500))
 pygame.display.set_caption('CATCH CHARLIE, ASAP!!!')
 clock = pygame.time.Clock()
 
+###PRESENTATION QUESTIONS
+#1. Most challenging.... line 54-72. and line 185. the logic was hard to grasp, and additionally my photos were not all sized the same.
+#2. Most enjoyed..... but all the challenge was worth it to get to personalize it
+#3. Next time.... a) get familair with pygame first b) LITERALLY ANY OTHER MUSIC
+
+
+
+
 #uploading all my images
 background_image = pygame.image.load('images/neighstreet.jpg').convert_alpha()
 Ali_image = pygame.image.load('images/ali.png').convert_alpha()
 charlie_image = pygame.image.load('images/charlie.png').convert_alpha()
-car_image = pygame.image.load('images/redcar.jpg'). convert_alpha()
+car_image = pygame.image.load('images/redcar.png'). convert_alpha()
 #reconstructing my background image
 background_image = pygame.image.load('images/neighstreet.jpg')
 background_image = pygame.transform.scale(background_image, (500, 500))
@@ -25,11 +33,11 @@ Ali_image = pygame.transform.scale(Ali_image, (70, 165))
 charlie_image = pygame.image.load('images/charlie.png')
 charlie_image = pygame.transform.scale(charlie_image, (70, 120))
 #reconstructing car image
-car_image = pygame.image.load('images/redcar.jpg')
+car_image = pygame.image.load('images/redcar.png')
 car_image = pygame.transform.scale(car_image, (70, 120))
 
 ###if player wins, a func that will called later, play this horrible music :(
-player_wins = pygame.mixer.Sound ('sounds/music.wav')
+player_wins = pygame.mixer.Sound ('sounds/win.wav')
 ###loading it to my code
 pygame.mixer.music.load('sounds/music.wav')
 #unfortuntely play this music
@@ -51,12 +59,12 @@ class Ali:
             #anything greater than the 500/500 window. 
             if self.x + 125 > width:
                 self.x = width - 125
-            #else/if the Ali's width is less than 0 on the x-axis then it equals to zero, meaning
-            #hero cannot go beyond the 0 point on the x axis
+            #else/if Ali's width is less than 0 on the x-axis then it equals to zero, meaning
+            #Ali cannot go beyond the 0 point on the x axis
             elif self.x < 0:
                 self.x = 0
             #if Ali's height is less than 0 on the y-axis then continue to keep it equal to zero, aka
-            #the hero cannot go beyond the 0 point on the y axis
+            #Alicannot go beyond the 0 point on the y axis
             if self.y < 0:
                 self.y = 0
             #else/if Ali's height + 200 is greater than the height of the window, then
@@ -76,7 +84,7 @@ class Ali:
             ####if on the xaxis and going down, then on the yaxis add some direction(opposite)
             elif xlane == 1:
                 self.x = self.x - self.direction
-class Protagonist:
+class Antagonist:
     def __init__ (self, width, height):
         self.xlane = random.randint(0, 1)
         self.ylane = random.randint(0, 1)
@@ -103,7 +111,7 @@ class Protagonist:
         self.y += 2
         if self.y > 500:
             self.y = 0
-    #********activates the movement#######
+    #********activates the diagonal movement#######
         ####if on the xaxis and going up, then on the yaxis and some opposite direction
         if self.xlane == 0:
             self.y = self.y + self.direction 
@@ -118,9 +126,9 @@ class Protagonist:
             self.x = self.x + self.direction
        
 
-class Charlie(Protagonist):
+class Charlie(Antagonist):
     pass
-class Cars(Protagonist):
+class Cars(Antagonist):
     pass
 
 def main():
@@ -129,15 +137,15 @@ def main():
     height = 550
 
     ###instead of calling my classes I can use this instead. creating them as variables.
-    charlie = Protagonist(width, height)
+    charlie = Antagonist(width, height)
     player = Ali(width, height)
-    car1 = Protagonist(width, height)
-    car2 = Protagonist(width, height)
-    car3 = Protagonist(width, height)
+    car1 = Antagonist(width, height)
+    car2 = Antagonist(width, height)
+    car3 = Antagonist(width, height)
     ###setting the font, and asking if they want to chase the pup again in white
-    f = pygame.font.Font(None, 30)
-    surf = f.render("Drop the leash?PRESS ENTER", 10, (12, 162, 204))
-    surf_losegame = f.render("Try again? PRESS BACKSPACE.", 1, (255,0,255))
+    f = pygame.font.Font(None, 35)
+    surf = f.render("Drop the leash?PRESS RETURN", 10, (255, 0, 255))
+    surf_losegame = f.render("Try again? PRESS RETURN.", 1, (255,0,255))
    
 
     ####Game logic, while stop_game is equal to false......
@@ -174,7 +182,7 @@ def main():
         ###using this incredible formula to calcuate distance on step 14
         ###given that an image is 32 pixels, mine are not and I had to play with this
         ###i made the formula relevent to 50 pixels because i was using large photos
-        if math.sqrt((player.x - charlie.x)**2 + (player.y - charlie.y)**2) <= 50:
+        if math.sqrt((player.x - charlie.x)**2 + (player.y - charlie.y)**2) <= 60:
             charlie.caught = True  
             player_wins.play()
         if math.sqrt((player.x - car1.x)**2 + (player.y - car1.y)**2) <= 90:
@@ -193,7 +201,7 @@ def main():
             ####and send charlie back to random-ville
             charlie.x = random.randint(0, width)
             charlie.y = random.randint(0, height)
-        if key [pygame.K_BACKSPACE] and player.caught or car1.caught or car2.caught or car3.caught:
+        if key [pygame.K_RETURN] and player.caught or car1.caught or car2.caught or car3.caught:
             player.caught = False
             #charlie.caught = False
             charlie.x = random.randint(0, width)
@@ -225,7 +233,7 @@ def main():
         #I know the instructions called for 2 seconds(2000), but i want it to be hard to get charlie like it was in real life.
         if charlie.timer >= 500:
             charlie.timer = 0
-        ###for all of the coordinates used by the protagonists, make sure they are random, range set for 0-3
+        ###for all of the coordinates used by the Antagonists, make sure they are random, range set for 0-3
             charlie.xlane = random.randint(0, 3)
             charlie.ylane = random.randint(0, 3)
             car3.xlane = random.randint(0, 3)
