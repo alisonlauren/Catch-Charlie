@@ -14,7 +14,7 @@ clock = pygame.time.Clock()
 background_image = pygame.image.load('images/neighstreet.jpg').convert_alpha()
 Ali_image = pygame.image.load('images/ali.png').convert_alpha()
 charlie_image = pygame.image.load('images/charlie.png').convert_alpha()
-car_image = pygame.image.load('images/redcar.jpg'). convert_alpha()
+car_image = pygame.image.load('images/redcar.png'). convert_alpha()
 #reconstructing my background image
 background_image = pygame.image.load('images/neighstreet.jpg')
 background_image = pygame.transform.scale(background_image, (500, 500))
@@ -25,11 +25,11 @@ Ali_image = pygame.transform.scale(Ali_image, (70, 165))
 charlie_image = pygame.image.load('images/charlie.png')
 charlie_image = pygame.transform.scale(charlie_image, (70, 120))
 #reconstructing car image
-car_image = pygame.image.load('images/redcar.jpg')
-car_image = pygame.transform.scale(car_image, (70, 120))
+car_image = pygame.image.load('images/redcar.png')
+car_image = pygame.transform.scale(car_image, (90, 140))
 
 ###if player wins, a func that will called later, play this horrible music :(
-player_wins = pygame.mixer.Sound ('sounds/music.wav')
+player_wins = pygame.mixer.Sound ('sounds/win.wav')
 ###loading it to my code
 pygame.mixer.music.load('sounds/music.wav')
 #unfortuntely play this music
