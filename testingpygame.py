@@ -2,21 +2,13 @@
 import pygame
 pygame.init()
 #importing time, random and math function
-import time  
+import time 
 import random
 import math
 #setting the size of the window, setting the caption and starting the "time" start on the game
 screen = pygame.display.set_mode((500, 500))
 pygame.display.set_caption('CATCH CHARLIE, ASAP!!!')
 clock = pygame.time.Clock()
-
-###PRESENTATION QUESTIONS
-#1. Most challenging.... line 54-72. and line 185. the logic was hard to grasp, and additionally my photos were not all sized the same.
-#2. Most enjoyed..... but all the challenge was worth it to get to personalize it
-#3. Next time.... a) get familair with pygame first b) LITERALLY ANY OTHER MUSIC
-
-
-
 
 #uploading all my images
 background_image = pygame.image.load('images/neighstreet.jpg').convert_alpha()
@@ -28,7 +20,7 @@ background_image = pygame.image.load('images/neighstreet.jpg')
 background_image = pygame.transform.scale(background_image, (500, 500))
 #reconstructing ali image
 Ali_image = pygame.image.load('images/ali.png')
-Ali_image = pygame.transform.scale(Ali_image, (70, 165))
+Ali_image = pygame.transform.scale(Ali_image, (68, 185))
 #reconstructing charlie image
 charlie_image = pygame.image.load('images/charlie.png')
 charlie_image = pygame.transform.scale(charlie_image, (70, 120))
@@ -59,12 +51,12 @@ class Ali:
             #anything greater than the 500/500 window. 
             if self.x + 125 > width:
                 self.x = width - 125
-            #else/if Ali's width is less than 0 on the x-axis then it equals to zero, meaning
-            #Ali cannot go beyond the 0 point on the x axis
+            #else/if the Ali's width is less than 0 on the x-axis then it equals to zero, meaning
+            #hero cannot go beyond the 0 point on the x axis
             elif self.x < 0:
                 self.x = 0
             #if Ali's height is less than 0 on the y-axis then continue to keep it equal to zero, aka
-            #Alicannot go beyond the 0 point on the y axis
+            #the hero cannot go beyond the 0 point on the y axis
             if self.y < 0:
                 self.y = 0
             #else/if Ali's height + 200 is greater than the height of the window, then
@@ -84,7 +76,7 @@ class Ali:
             ####if on the xaxis and going down, then on the yaxis add some direction(opposite)
             elif xlane == 1:
                 self.x = self.x - self.direction
-class Antagonist:
+class Protagonist:
     def __init__ (self, width, height):
         self.xlane = random.randint(0, 1)
         self.ylane = random.randint(0, 1)
@@ -111,7 +103,7 @@ class Antagonist:
         self.y += 2
         if self.y > 500:
             self.y = 0
-    #********activates the diagonal movement#######
+    #********activates the movement#######
         ####if on the xaxis and going up, then on the yaxis and some opposite direction
         if self.xlane == 0:
             self.y = self.y + self.direction 
@@ -126,9 +118,9 @@ class Antagonist:
             self.x = self.x + self.direction
        
 
-class Charlie(Antagonist):
+class Charlie(Protagonist):
     pass
-class Cars(Antagonist):
+class Cars(Protagonist):
     pass
 
 def main():
@@ -137,16 +129,16 @@ def main():
     height = 550
 
     ###instead of calling my classes I can use this instead. creating them as variables.
-    charlie = Antagonist(width, height)
+    charlie = Protagonist(width, height)
     player = Ali(width, height)
-    car1 = Antagonist(width, height)
-    car2 = Antagonist(width, height)
-    car3 = Antagonist(width, height)
+    car1 = Protagonist(width, height)
+    car2 = Protagonist(width, height)
+    car3 = Protagonist(width, height)
     ###setting the font, and asking if they want to chase the pup again in white
-    f = pygame.font.Font(None, 35)
-    surf = f.render("Drop the leash?PRESS RETURN", 10, (255, 0, 255))
-    surf_losegame = f.render("Try again? PRESS RETURN.", 1, (255,0,255))
-   
+    f = pygame.font.Font(None, 30)
+    surf = f.render("Drop the leash?PRESS RETURN", 10, (255, 255, 255))
+    surf_losegame = f.render("Try again? PRESS RETURN.", 1, (255,255,255))
+
 
     ####Game logic, while stop_game is equal to false......
     stop_game = False
@@ -223,7 +215,7 @@ def main():
         ##if charlie is not caught, let that boy run to his hearts content
         if not charlie.caught:
             screen.blit(charlie_image, [charlie.x, charlie.y])
-        ###if charlie is caught, boof charlie is gone gone for a second
+        ###if charlie is caught, boof charlie is gone for a second
         if charlie.caught:
             screen.blit(surf, [width/5, height/2])
 
@@ -233,7 +225,7 @@ def main():
         #I know the instructions called for 2 seconds(2000), but i want it to be hard to get charlie like it was in real life.
         if charlie.timer >= 500:
             charlie.timer = 0
-        ###for all of the coordinates used by the Antagonists, make sure they are random, range set for 0-3
+        ###for all of the coordinates used by the protagonists, make sure they are random, range set for 0-3
             charlie.xlane = random.randint(0, 3)
             charlie.ylane = random.randint(0, 3)
             car3.xlane = random.randint(0, 3)
