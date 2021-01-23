@@ -138,6 +138,7 @@ def main():
     f = pygame.font.Font(None, 30)
     surf = f.render("Drop the leash?PRESS RETURN", 10, (255, 255, 255))
     surf_losegame = f.render("Try again? PRESS RETURN.", 1, (255,255,255))
+   
 
 
     ####Game logic, while stop_game is equal to false......
@@ -186,7 +187,7 @@ def main():
         if math.sqrt((player.x - car3.x)**2 + (player.y - car3.y)**2) <= 90:
             player.caught = True
             lose_sound.play()
-       
+
         ###if key return gets pressed, (after charlie get's caught of course )
         if key [pygame.K_RETURN] and charlie.caught:
             charlie.caught = False #now it would reset that charlie is not caught.......
@@ -243,3 +244,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
